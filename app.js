@@ -27,19 +27,15 @@ function timer() {
   $("#display").text(hours + "h " + minutes + "m " + secondsPassed + "s ")
 };
 
-function clearTimer() {
-    clearInterval(startTimer);
-}
-
 //Start button
 function startSession () {
-  clearTimer()
+  clearInterval(startTimer)
   start = new moment()
   var startTimer = setInterval(timer, 1000)
 };
 //End Button
 function endSession () {
- clearTimer()
+ clearInterval(startTimer)
  end = new moment()
  duration = moment.duration(end.diff(start))
  console.log(duration)
