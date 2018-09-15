@@ -41,7 +41,9 @@ function startSession () {
   clearInterval(timerId)
   timerId = intervalTrigger()
   start = new moment()
-  disableThis();
+  startDate = start._d
+  console.log(start)
+  //disableThis();
   enablePause();
   enableEnd();
 };
@@ -50,9 +52,11 @@ function endSession () {
   clearInterval(timerId)
   secondsPassed = 0;
   end = new moment()
-  duration = moment.duration(end.diff(start))
+  duration = moment.duration(end.diff(start))._data.seconds
+
   console.log(duration)
-  disableThis()
+  console.log("This session was: " + duration + "s and took place on " + startDate  )
+  //disableThis()
   enableStart();
 };
 // Pause time
