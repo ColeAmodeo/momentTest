@@ -75,24 +75,28 @@ $("#start-btn").off().on('click', startSession)
 $("#end-btn").off().on('click', endSession)
 $("#pause-btn").off().on('click', pause)
 $("#resume-btn").off().on('click', resume)
-
+$(":button").on('click', disableThis)
 // ***********************************************************
 // Environment for disabling buttons to stop idiots from pressing shit they shouldnt
 // ***********************************************************
 function disableThis(){
-  var buttonId = this.id;
-  $(buttonId).attr('disabled','disabled');
-
+  $(this).fadeTo("slow", 0.5)
+  $(this).css('color', 'red')
+  $(this).attr('disabled','disabled');
 }
 function enableStart() {
   $("#start-btn").removeAttr('disabled');
+  $("#start-btn").css('opacity', '1')
 }
 function enableEnd() {
   $("#end-btn").removeAttr('disabled');
+  $("#end-btn").css('opacity', '1')
 }
 function enableResume() {
   $("#resume-btn").removeAttr('disabled');
+  $("#resume-btn").css('opacity', '1')
 }
 function enablePause() {
   $("#pause-btn").removeAttr('disabled');
+  $("#pause-btn").css('opacity', '1');
 }
