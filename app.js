@@ -8,9 +8,9 @@ var duration;
 var minutes = 0;
 var hours = 0;
 var secondsPassed = 0;
-var startTimer;
-// Timer Logic
+var timerId;
 
+// Timer Logic
 function timer() {
   secondsPassed = parseInt(secondsPassed + 1);
   console.log(secondsPassed)
@@ -26,16 +26,18 @@ function timer() {
   // Display the result in the element with id="display"
   $("#display").text(hours + "h " + minutes + "m " + secondsPassed + "s ")
 };
-
+function intervalTrigger() {
+  return window.setInterval(timer, 1000)
+};
 //Start button
 function startSession () {
-  clearInterval(startTimer)
+  clearInterval(timerId)
+  timerId = intervalTrigger()
   start = new moment()
-  var startTimer = setInterval(timer, 1000)
 };
 //End Button
 function endSession () {
- clearInterval(startTimer)
+ clearInterval(timerId)
  end = new moment()
  duration = moment.duration(end.diff(start))
  console.log(duration)
