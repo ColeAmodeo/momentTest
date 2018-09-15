@@ -26,6 +26,7 @@ function timer() {
   // Display the result in the element with id="display"
   $("#display").text(hours + "h " + minutes + "m " + secondsPassed + "s ")
 };
+// Nests the interval in a function to prevent it from auto starting
 function intervalTrigger() {
   return window.setInterval(timer, 1000)
 };
