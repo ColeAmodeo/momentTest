@@ -9,6 +9,7 @@ var duration;
 var minutes = 0;
 var hours = 0;
 var secondsPassed = 0;
+var pausedTime;
 var timerId;
 // ***********************************************************
 // Timer Logic
@@ -48,8 +49,9 @@ function startSession () {
 function endSession () {
   clearInterval(timerId)
   secondsPassed = 0;
+  pausedTime = 0;
   end = new moment()
-  duration = moment.duration(end.diff(start))._data.seconds
+  duration = (moment.duration(end.diff(start))._data.seconds - pausedTime)
   console.log(duration)
   console.log("This session was: " + duration + "s and took place on " + startDate)
   enableStart();
@@ -58,11 +60,13 @@ function endSession () {
 function pause() {
   clearInterval(timerId)
   enableResume();
+  return var pauseStart = new moment()
 }
 // Resume time
 function resume() {
   timerId = intervalTrigger()
   enablePause();
+  return var pauseEnd = new moment()
 }
 // ***********************************************************
 // Click Handlers
