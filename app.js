@@ -9,7 +9,9 @@ var duration;
 var minutes = 0;
 var hours = 0;
 var secondsPassed = 0;
-var pausedTime;
+var pauseStart;
+var pauseEnd;
+var pausedTime = 0;
 var timerId;
 // ***********************************************************
 // Timer Logic
@@ -60,13 +62,14 @@ function endSession () {
 function pause() {
   clearInterval(timerId)
   enableResume();
-  return var pauseStart = new moment()
+  pauseStart = new moment()
 }
 // Resume time
 function resume() {
   timerId = intervalTrigger()
   enablePause();
-  return var pauseEnd = new moment()
+  pauseEnd = new moment()
+
 }
 // ***********************************************************
 // Click Handlers
