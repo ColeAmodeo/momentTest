@@ -14,6 +14,12 @@ var pauseEnd;
 var pausedTime = 0;
 var timerId;
 // ***********************************************************
+// Setting certain buttons to disabled on page load
+// ***********************************************************
+disableEnd();
+$("#pause-btn").attr('disabled', 'disabled').fadeTo("slow", 0.5)
+$("#resume-btn").attr('disabled', 'disabled').fadeTo("slow", 0.5)
+// ***********************************************************
 // Timer Logic
 // ***********************************************************
 function timer() {
@@ -39,38 +45,40 @@ function intervalTrigger() {
 // ***********************************************************
 //Start button
 function startSession () {
-  clearInterval(timerId)
+  pausedTime = 0;
+  secondsPassed = 0;
   timerId = intervalTrigger()
   start = new moment()
   startDate = start._d
-  console.log(start)
   enablePause();
   enableEnd();
 };
 //End Button
 function endSession () {
   clearInterval(timerId)
-  secondsPassed = 0;
-  pausedTime = 0;
   end = new moment()
+  console.log("The session was paused for: " + pausedTime + "s")
   duration = (moment.duration(end.diff(start))._data.seconds - pausedTime)
-  console.log(duration)
   console.log("This session was: " + duration + "s and took place on " + startDate)
   enableStart();
 };
 // Pause time
 function pause() {
   clearInterval(timerId)
-  enableResume();
   pauseStart = new moment()
+  enableResume();
+  disableEnd();
 }
 // Resume time
 function resume() {
   timerId = intervalTrigger()
-  enablePause();
   pauseEnd = new moment()
-
+  var breakTime = moment.duration(pauseEnd.diff(pauseStart))._data.seconds
+  enablePause();
+  enableEnd();
+  return pausedTime += breakTime
 }
+
 // ***********************************************************
 // Click Handlers
 // ***********************************************************
@@ -80,11 +88,14 @@ $("#pause-btn").off().on('click', pause)
 $("#resume-btn").off().on('click', resume)
 $(".controls").on('click', disableThis)
 // ***********************************************************
-// Environment for disabling buttons to stop idiots from pressing shit they shouldnt
+// Environment for disabling buttons to stop idiots from pressing things they shouldnt
 // ***********************************************************
 function disableThis(){
   $(this).fadeTo("slow", 0.5)
   $(this).attr('disabled','disabled');
+}
+function disableEnd(){
+  $("#end-btn").attr('disabled', 'disabled').fadeTo("slow", 0.5)
 }
 function enableStart() {
   $("#start-btn").removeAttr('disabled');
