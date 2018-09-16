@@ -1,4 +1,3 @@
-
 moment().format();
 // ***********************************************************
 // Creating environment for timer function
@@ -35,7 +34,6 @@ function intervalTrigger() {
 // ***********************************************************
 //      BUTTON TRIGGER FUNCTIONS
 // ***********************************************************
-
 //Start button
 function startSession () {
   clearInterval(timerId)
@@ -43,7 +41,6 @@ function startSession () {
   start = new moment()
   startDate = start._d
   console.log(start)
-  //disableThis();
   enablePause();
   enableEnd();
 };
@@ -53,23 +50,18 @@ function endSession () {
   secondsPassed = 0;
   end = new moment()
   duration = moment.duration(end.diff(start))._data.seconds
-
   console.log(duration)
-  console.log("This session was: " + duration + "s and took place on " + startDate  )
-  //disableThis()
+  console.log("This session was: " + duration + "s and took place on " + startDate)
   enableStart();
 };
 // Pause time
 function pause() {
   clearInterval(timerId)
-  disableThis();
   enableResume();
-
 }
 // Resume time
 function resume() {
-  timerID = intervalTrigger()
-  disableThis();
+  timerId = intervalTrigger()
   enablePause();
 }
 // ***********************************************************
@@ -79,13 +71,12 @@ $("#start-btn").off().on('click', startSession)
 $("#end-btn").off().on('click', endSession)
 $("#pause-btn").off().on('click', pause)
 $("#resume-btn").off().on('click', resume)
-$(":button").on('click', disableThis)
+$(".controls").on('click', disableThis)
 // ***********************************************************
 // Environment for disabling buttons to stop idiots from pressing shit they shouldnt
 // ***********************************************************
 function disableThis(){
   $(this).fadeTo("slow", 0.5)
-  $(this).css('color', 'red')
   $(this).attr('disabled','disabled');
 }
 function enableStart() {
